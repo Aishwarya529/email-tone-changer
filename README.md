@@ -8,20 +8,20 @@ Email Rewriting: Paste an email and transform its tone with a single click.
 Responsive Design: Clean, modern UI with consistent styling across devices.
 Backend Integration: Uses Google Gemini API for natural language processing.
 
-Tech Stack
+**Tech Stack**
 
 Frontend: HTML, CSS, JavaScript
 Backend: Node.js, Express.js
 API: Google Gemini API
 Dependencies: express, cors, dotenv, @google/generative-ai
 
-Prerequisites
+**Prerequisites**
 
 Node.js (v16 or higher)
 npm (v8 or higher)
 A Google Gemini API key (obtain from Google AI Studio)
 
-Setup Instructions
+**Setup Instructions**
 1. Clone the Repository
 git clone <your-repository-url>
 cd tonecraft
