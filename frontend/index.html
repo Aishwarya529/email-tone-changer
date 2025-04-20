@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ToneCraft</title>
+  <style>
+    body {
+      background-color: hsl(222.2, 84%, 4.9%);
+      font-family: Arial, sans-serif;
+      margin: 0;
+      padding: 0;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+    }
+
+    .container {
+      text-align: center;
+      padding: 2rem;
+      width: 80%;
+      max-width: 800px;
+    }
+
+    h1 {
+      color: #6b46c1;
+      font-size: 2rem;
+      margin-bottom: 0.5rem;
+    }
+
+    p {
+      color: #e2e8f0;
+      margin-bottom: 2rem;
+    }
+
+    .sections {
+      display: flex;
+      flex-direction: column;
+      gap: 2rem;
+    }
+
+    .section {
+      padding: 1rem;
+    }
+
+    .tone-options, .email-input, .preview {
+      background-color: hsl(222.2, 84%, 4.9%);
+      border-radius: 0.5rem;
+      padding: 1rem;
+      margin-bottom: 1rem;
+      box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    }
+
+    .tone-option {
+      display: block;
+      padding: 0.75rem;
+      margin-bottom: 0.5rem;
+      border: 2px solid;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      color: hsl(222.2, 84%, 4.9%);
+      background-color: #fff;
+      position: relative;
+    }
+
+    .tone-option input[type="radio"] {
+      margin-right: 0.5rem;
+    }
+
+    .professional { border-color: #a3bffa; }
+    .professional:hover, .professional input[type="radio"]:checked + span { background-color: #dbe4f7; }
+
+    .friendly { border-color: #c6f6d5; }
+    .friendly:hover, .friendly input[type="radio"]:checked + span { background-color: #e6ffe9; }
+
+    .formal { border-color: #e9d8fd; }
+    .formal:hover, .formal input[type="radio"]:checked + span { background-color: #ece0fe; }
+
+    .casual { border-color: #fefcbf; }
+    .casual:hover, .casual input[type="radio"]:checked + span { background-color: #fef9d8; }
+
+    .enthusiastic { border-color: #feb2b2; }
+    .enthusiastic:hover, .enthusiastic input[type="radio"]:checked + span { background-color: #fed7d7; }
+
+    textarea, .preview-content {
+      width: 100%;
+      padding: 1rem;
+      border: 2px solid #cbd5e0;
+      border-radius: 0.5rem;
+      resize: vertical;
+      min-height: 150px;
+      color: #020f20;
+      background-color: #fff;
+    }
+
+    .rewrite-btn {
+      background-color: #6b46c1;
+      color: #fff;
+      border: none;
+      padding: 0.75rem 1.5rem;
+      border-radius: 0.5rem;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+    }
+
+    .rewrite-btn:hover {
+      background-color: #553c9a;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>⭐ ToneCraft</h1>
+    <p>Transform your email's tone with a single click</p>
+    <div class="sections">
+      <div class="section">
+        <div class="tone-options">
+          <h3 style="color: #e2e8f0;">Select Tone</h3>
+          <p style="color: #e2e8f0;">Choose how you'd like your email to sound</p>
+          <label class="tone-option professional">
+            <input type="radio" name="tone" value="professional"><span>Professional<br>Clear, concise and business-appropriate</span>
+          </label>
+          <label class="tone-option friendly">
+            <input type="radio" name="tone" value="friendly"><span>Friendly<br>Warm, approachable and personable</span>
+          </label>
+          <label class="tone-option formal">
+            <input type="radio" name="tone" value="formal"><span>Formal<br>Respectful, sophisticated and traditional</span>
+          </label>
+          <label class="tone-option casual">
+            <input type="radio" name="tone" value="casual"><span>Casual<br>Relaxed, conversational and laid-back</span>
+          </label>
+          <label class="tone-option enthusiastic">
+            <input type="radio" name="tone" value="enthusiastic"><span>Enthusiastic<br>Energetic, positive and motivating</span>
+          </label>
+        </div>
+      </div>
+      <div class="section">
+        <div class="email-input">
+          <h3 style="color: #e2e8f0;">Original Email</h3>
+          <p style="color: #020f20;">Paste the email you want to rewrite</p>
+          <textarea placeholder="Type or paste your email here..."></textarea>
+        </div>
+      </div>
+      <div class="section">
+        <div class="preview">
+          <h3 style="color: #e2e8f0;">Rewritten Email</h3>
+          <p style="color: #020f20;">Your rewritten email will appear here</p>
+          <div class="preview-content">Rewritten email will appear here...</div>
+        </div>
+      </div>
+      <div class="section">
+        <button class="rewrite-btn">⭐ Rewrite with Tone</button>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // Select DOM elements
+    const rewriteBtn = document.querySelector('.rewrite-btn');
+    const textarea = document.querySelector('textarea');
+    const previewContent = document.querySelector('.preview-content');
+    const toneOptions = document.querySelectorAll('input[name="tone"]');
+
+    // Add click event listener to the rewrite button
+    rewriteBtn.addEventListener('click', async () => {
+      // Get selected tone
+      const selectedTone = Array.from(toneOptions).find(option => option.checked)?.value;
+      if (!selectedTone) {
+        previewContent.textContent = 'Please select a tone.';
+        return;
+      }
+
+      // Get email text
+      const emailText = textarea.value.trim();
+      if (!emailText) {
+        previewContent.textContent = 'Please enter an email to rewrite.';
+        return;
+      }
+
+      // Construct prompt for backend
+      const prompt = `Rewrite the following email in a ${selectedTone} tone:\n\n${emailText}`;
+
+      try {
+        // Send request to backend
+        const response = await fetch('http://localhost:5000/api/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt })
+        });
+
+        const data = await response.json();
+
+        if (response.ok) {
+          // Display rewritten email
+          previewContent.textContent = data.text || 'No response received.';
+        } else {
+          // Display backend error
+          previewContent.textContent = `Backend Error: ${data.error || 'Failed to connect.'}`;
+        }
+      } catch (error) {
+        // Display connection error
+        previewContent.textContent = 'Connection Error: Backend not reachable.';
+        console.error('Error:', error);
+      }
+    });
+  </script>
+</body>
+</html>
