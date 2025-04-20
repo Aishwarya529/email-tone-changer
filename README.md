@@ -1,5 +1,5 @@
 # email-tone-changer
-ToneCraft
+
 ToneCraft is a web application that allows users to rewrite emails in different tones (e.g., professional, friendly, formal, casual, enthusiastic) using the Google Gemini API. The frontend is a single-page HTML application with a responsive design, and the backend is built with Express.js to handle API requests.
 Features
 
